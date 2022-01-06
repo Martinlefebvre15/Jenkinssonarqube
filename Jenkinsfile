@@ -3,6 +3,15 @@ pipeline {
   stages {
     stage('Int') {
       steps {
+        sh '''export MAVEN_HOME=/opt/maven
+export PATH=$PATH:$MAVEN_HOME/bin
+mvn --version
+mvn clean package'''
+      }
+    }
+
+    stage('Sonar') {
+      steps {
         sh '''mvn clean verify sonar:sonar \\
   -Dsonar.projectKey=Projet1 \\
   -Dsonar.host.url=http://localhost \\
